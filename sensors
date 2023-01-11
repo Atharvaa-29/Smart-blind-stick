@@ -1,74 +1,38 @@
 const int trigPin = 9;
 const int echoPin = 10;
 const int buzzer = 11;
-const int waterPin = A0;
-const int lightPin = A1;
-int value = 825;
 long duration;
 int distance;
 int safetyDistance;
-void setup() {
+void setup()
+{
 pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
 pinMode(echoPin, INPUT); // Sets the echoPin as an Input
-pinMode(waterPin,INPUT);
-pinMode(lightPin,INPUT);
 pinMode(buzzer, OUTPUT);
 Serial.begin(9600); // Starts the serial communication
 }
-void loop() {
-
-//Ultrasonic Sensor
+void loop()
+{
 digitalWrite(trigPin, LOW);
 delayMicroseconds(2);
 digitalWrite(trigPin, HIGH);
 delayMicroseconds(10);
 digitalWrite(trigPin, LOW);
-33
 duration = pulseIn(echoPin, HIGH);
 distance= duration*0.034/2;
 safetyDistance = distance;
-if (safetyDistance <= 5){
+if (safetyDistance <= 8)
+{
  Serial.println("Obstacle is detected");
  digitalWrite(buzzer, HIGH);
  delay(1000);
  digitalWrite(buzzer, LOW);
  delay(1000);
+ Serial.println(safetyDistance);
 }
-else{
+else
+{
  digitalWrite(buzzer, LOW);
  
 }
-
-//Soil Moisture Sensor
-int senseValue = analogRead(waterPin);
- //Serial.print(senseValue);
- if(senseValue < value)
- {
- Serial.println("Water is detected");
- digitalWrite(buzzer,HIGH);
- delay(1000);
- digitalWrite(buzzer,LOW);
- delay(100);
- 
- }
- else
- {
- digitalWrite(buzzer,LOW);
- }
-
- //LDR
- int lightValue = analogRead(lightPin);
- //Serial.println(lightValue);
- if(lightValue <10 )
- {
- Serial.println("Absence of Light!!!");
- digitalWrite(buzzer,HIGH);
- //delay(1000);
- //digitalWrite(buzzer,LOW);
- //delay(100);
- }
- else
- {
- digitalWrite(buzzer,LOW);
- }
 }
