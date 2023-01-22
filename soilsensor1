@@ -9,7 +9,6 @@ Serial.begin(9600);
 }
 void loop() {
 int senseValue = analogRead(waterPin);
- //Serial.print(senseValue);
  if(senseValue < value)
  {
  Serial.println("Water is detected");
