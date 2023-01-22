@@ -1,0 +1,26 @@
+const int buzzer = 11;
+const int waterPin = A0;
+int value = 825;
+void setup() 
+{
+pinMode(waterPin,INPUT);
+pinMode(buzzer, OUTPUT);
+Serial.begin(9600); 
+}
+void loop() {
+int senseValue = analogRead(waterPin);
+ //Serial.print(senseValue);
+ if(senseValue < value)
+ {
+ Serial.println("Water is detected");
+ digitalWrite(buzzer,HIGH);
+ delay(1000);
+ digitalWrite(buzzer,LOW);
+ delay(100);
+ 
+ }
+ else
+ {
+ digitalWrite(buzzer,LOW);
+ }
+}
